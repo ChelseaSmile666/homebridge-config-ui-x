@@ -4,6 +4,7 @@ import { AccessoriesWidgetComponent } from '@/app/modules/status/widgets/accesso
 import { BridgesWidgetComponent } from '@/app/modules/status/widgets/bridges-widget/bridges-widget.component'
 import { ClockWidgetComponent } from '@/app/modules/status/widgets/clock-widget/clock-widget.component'
 import { CpuWidgetComponent } from '@/app/modules/status/widgets/cpu-widget/cpu-widget.component'
+import { GoogleHomeWidgetComponent } from '@/app/modules/status/widgets/google-home-widget/google-home-widget.component'
 import { HapQrcodeWidgetComponent } from '@/app/modules/status/widgets/hap-qrcode-widget/hap-qrcode-widget.component'
 import { HomebridgeLogsWidgetComponent } from '@/app/modules/status/widgets/homebridge-logs-widget/homebridge-logs-widget.component'
 import { MatterQrcodeWidgetComponent } from '@/app/modules/status/widgets/matter-qrcode-widget/matter-qrcode-widget.component'
@@ -32,6 +33,7 @@ export const AVAILABLE_WIDGETS = [
   'ClockWidgetComponent',
   'BridgesWidgetComponent',
   'MatterQrcodeWidgetComponent',
+  'GoogleHomeWidgetComponent',
 ] as const
 
 @Component({
@@ -60,6 +62,7 @@ export class WidgetsComponent implements OnInit, OnDestroy {
     AccessoriesWidgetComponent,
     ClockWidgetComponent,
     BridgesWidgetComponent,
+    GoogleHomeWidgetComponent,
   }
 
   @Input() widget: Widget

@@ -121,6 +121,14 @@ export class WidgetVisibilityComponent implements OnInit {
           }]
         : [],
       {
+        name: this.$translate.instant('status.widget.add.google_home'),
+        component: 'GoogleHomeWidgetComponent',
+        hidden: false,
+        cols: 3,
+        rows: 7,
+        mobileOrder: 110,
+      },
+      {
         name: this.$translate.instant('status.widget.homebridge_logs'),
         component: 'HomebridgeLogsWidgetComponent',
         hidden: false,

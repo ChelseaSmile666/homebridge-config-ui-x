@@ -1,0 +1,57 @@
+<div class="d-flex w-100 p-2">
+  <div class="drag-handler d-flex flex-column align-items-center justify-content-center w-100 h-100">
+
+    @if (loading) {
+    <div class="d-flex align-items-center justify-content-center w-100 h-100">
+      <i class="fas fa-circle-notch fa-spin fa-2xl grey-text"></i>
+    </div>
+    } @else {
+    <div class="d-flex flex-column align-items-center justify-content-center w-100 h-100 text-center px-3">
+
+      <!-- Google Home Icon -->
+      <div class="mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+          <path d="M12 3L4 9v12h16V9L12 3z" fill="#4285F4"/>
+          <path d="M9 21v-8h6v8" fill="#34A853"/>
+          <path d="M4 9l8-6 8 6" fill="#FBBC05" fill-opacity="0.6"/>
+        </svg>
+      </div>
+
+      <p class="mb-1 small fw-bold">Google Home</p>
+
+      @if (!isInstalled) {
+      <!-- Plugin not installed -->
+      <p class="grey-text mb-2 small">{{ 'status.widget.google_home.not_installed' | translate }}</p>
+      <button class="btn btn-primary btn-sm waves-effect m-0" (click)="openSettings()">
+        <i class="fas fa-plug me-1"></i>
+        {{ 'status.widget.google_home.install_plugin' | translate }}
+      </button>
+      } @else if (!isLinked) {
+      <!-- Plugin installed but not linked -->
+      <p class="grey-text mb-2 small">
+        {{ 'plugins.settings.custom.homebridge-gsh.message_account_link_required' | translate }}
+      </p>
+      <button class="btn btn-outline-primary btn-sm waves-effect m-0" (click)="openSettings()">
+        <i class="fab fa-google me-1"></i>
+        {{ 'plugins.settings.custom.homebridge-gsh.label_link_account' | translate }}
+      </button>
+      } @else {
+      <!-- Plugin installed and linked -->
+      <p class="grey-text mb-1 small">
+        <i class="fas fa-link green-text me-1"></i>
+        {{ 'plugins.settings.custom.homebridge-gsh.label_account_linked' | translate }}
+      </p>
+      <p class="grey-text mb-2 small">
+        <span class="green-text">&#10003;</span> {{ 'status.widget.google_home.active' | translate }}
+      </p>
+      <button class="btn btn-outline-secondary btn-sm waves-effect m-0" (click)="openSettings()">
+        <i class="fas fa-cog me-1"></i>
+        {{ 'status.widget.google_home.configure' | translate }}
+      </button>
+      }
+
+    </div>
+    }
+
+  </div>
+</div>
