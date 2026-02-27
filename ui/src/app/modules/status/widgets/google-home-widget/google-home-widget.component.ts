@@ -4,6 +4,8 @@ import { TranslatePipe } from '@ngx-translate/core'
 import { firstValueFrom, Subject } from 'rxjs'
 
 import { ApiService } from '@/app/core/api.service'
+import { ManagePluginsService } from '@/app/core/manage-plugins/manage-plugins.service'
+import { Plugin } from '@/app/core/manage-plugins/manage-plugins.interfaces'
 
 @Component({
   templateUrl: './google-home-widget.component.html',
@@ -14,6 +16,7 @@ import { ApiService } from '@/app/core/api.service'
 })
 export class GoogleHomeWidgetComponent implements OnInit {
   private $api = inject(ApiService)
+  private $plugin = inject(ManagePluginsService)
   private $router = inject(Router)
 
   @Input() resizeEvent: Subject<any>
@@ -22,6 +25,7 @@ export class GoogleHomeWidgetComponent implements OnInit {
   public isInstalled = false
   public isLinked = false
   public pluginName = 'homebridge-gsh'
+  private pluginRef: Plugin | null = null
 
   public async ngOnInit() {
     await this.checkPluginStatus()
@@ -29,9 +33,10 @@ export class GoogleHomeWidgetComponent implements OnInit {
 
   private async checkPluginStatus() {
     try {
-      const plugins: any[] = await firstValueFrom(this.$api.get('/plugins'))
-      const gsh = plugins.find((p: any) => p.name === this.pluginName)
+      const plugins: Plugin[] = await firstValueFrom(this.$api.get('/plugins'))
+      const gsh = plugins.find((p: Plugin) => p.name === this.pluginName)
       this.isInstalled = !!gsh
+      this.pluginRef = gsh || null
 
       if (this.isInstalled) {
         await this.checkLinkedStatus()
@@ -53,9 +58,9 @@ export class GoogleHomeWidgetComponent implements OnInit {
     }
   }
 
-  public goToPlugin() {
-    if (this.isInstalled) {
-      void this.$router.navigate(['/plugins'], { queryParams: { search: this.pluginName } })
+  public openSettings() {
+    if (this.isInstalled && this.pluginRef) {
+      void this.$plugin.settings(this.pluginRef)
     } else {
       void this.$router.navigate(['/plugins'], { queryParams: { search: this.pluginName } })
     }

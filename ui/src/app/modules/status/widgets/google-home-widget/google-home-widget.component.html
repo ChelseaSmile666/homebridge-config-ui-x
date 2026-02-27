@@ -22,19 +22,18 @@
       @if (!isInstalled) {
       <!-- Plugin not installed -->
       <p class="grey-text mb-2 small">{{ 'status.widget.google_home.not_installed' | translate }}</p>
-      <button class="btn btn-primary btn-sm waves-effect m-0" (click)="goToPlugin()">
+      <button class="btn btn-primary btn-sm waves-effect m-0" (click)="openSettings()">
         <i class="fas fa-plug me-1"></i>
         {{ 'status.widget.google_home.install_plugin' | translate }}
       </button>
       } @else if (!isLinked) {
       <!-- Plugin installed but not linked -->
       <p class="grey-text mb-2 small">
-        <i class="fas fa-link grey-text me-1"></i>
-        {{ 'plugins.settings.custom.homebridge-gsh.label_link_account' | translate }}
+        {{ 'plugins.settings.custom.homebridge-gsh.message_account_link_required' | translate }}
       </p>
-      <button class="btn btn-outline-primary btn-sm waves-effect m-0" (click)="goToPlugin()">
-        <i class="fas fa-arrow-right me-1"></i>
-        {{ 'status.widget.google_home.configure' | translate }}
+      <button class="btn btn-outline-primary btn-sm waves-effect m-0" (click)="openSettings()">
+        <i class="fab fa-google me-1"></i>
+        {{ 'plugins.settings.custom.homebridge-gsh.label_link_account' | translate }}
       </button>
       } @else {
       <!-- Plugin installed and linked -->
@@ -42,9 +41,13 @@
         <i class="fas fa-link green-text me-1"></i>
         {{ 'plugins.settings.custom.homebridge-gsh.label_account_linked' | translate }}
       </p>
-      <p class="grey-text mb-0 small">
+      <p class="grey-text mb-2 small">
         <span class="green-text">&#10003;</span> {{ 'status.widget.google_home.active' | translate }}
       </p>
+      <button class="btn btn-outline-secondary btn-sm waves-effect m-0" (click)="openSettings()">
+        <i class="fas fa-cog me-1"></i>
+        {{ 'status.widget.google_home.configure' | translate }}
+      </button>
       }
 
     </div>
