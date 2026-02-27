@@ -36,6 +36,7 @@ For detailed instructions on how to set up Node.js and Homebridge with Homebridg
 - <img src="https://user-images.githubusercontent.com/3979615/59594350-07b45b80-9137-11e9-85fd-e75093ba91a4.png" alt="raspbian" height="16px" width="16px"/> [Setup Homebridge on a Raspberry Pi (Raspbian)](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Raspbian)
 - <img src="https://user-images.githubusercontent.com/3979615/59595664-93c78280-9139-11e9-83dc-4d6f9405e788.png" alt="linux" height="16px" width="16px"/> [Setup Homebridge on Debian or Ubuntu Linux](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Debian-or-Ubuntu-Linux)
 - <img src="https://user-images.githubusercontent.com/3979615/59593218-e0f52580-9134-11e9-8b77-585755af5d99.png" alt="windows" height="16px" width="16px"/> [Setup Homebridge on Windows 10](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Windows-10)
+- <img src="https://user-images.githubusercontent.com/3979615/59593218-e0f52580-9134-11e9-8b77-585755af5d99.png" alt="windows" height="16px" width="16px"/> [Setup Homebridge on Windows using the clone-based installer script](#windows-clone-based-install)
 - <img src="https://user-images.githubusercontent.com/3979615/59594157-b015f000-9136-11e9-93cb-c9d9773ec9e8.png" alt="macos" height="16px" width="16px"/> [Setup Homebridge on macOS](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-macOS)
 - <img src="https://user-images.githubusercontent.com/3979615/59594527-56fa8c00-9137-11e9-937b-32092dfcff41.png" alt="docker" height="16px" width="16px"/> [Setup Homebridge using Docker](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Docker)
 - <img src="https://user-images.githubusercontent.com/3979615/78118531-dc46f700-7452-11ea-95e5-977f79d1904f.png" alt="synology-dsm" height="16px" width="16px"/> [Setup Homebridge on a Synology NAS](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Synology-DSM)
@@ -45,6 +46,58 @@ If your platform is not listed above, or you want to use your own service manage
 The default username is `admin` and the default password is `admin`.
 
 The UI can be accessed via web browser by default on port `8581` (e.g. `http://localhost:8581`).
+
+## Windows Clone-Based Install
+
+<a name="windows-clone-based-install"></a>
+
+For Windows 10/11 devices (including **Microsoft Surface Pro 7**), a PowerShell installer script is provided that clones the repository and sets up Homebridge as a Windows service automatically.
+
+### Prerequisites
+
+- [Node.js 18 LTS or later](https://nodejs.org/en/download/)
+- [Git for Windows](https://git-scm.com/download/win)
+- PowerShell 5.0 or later (built into Windows 10/11)
+
+### Steps
+
+1. Open **PowerShell as Administrator** (right-click the Start menu → *Windows PowerShell (Admin)*)
+
+2. Run the installer script directly from the repository:
+
+   ```powershell
+   # Clone the repo
+   git clone https://github.com/homebridge/homebridge-config-ui-x.git
+   cd homebridge-config-ui-x
+
+   # Run the installer
+   Set-ExecutionPolicy Bypass -Scope Process -Force
+   .\scripts\install-windows.ps1
+   ```
+
+3. Once complete, open your browser and go to `http://localhost:8581`
+
+### Optional Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `-Port` | `8581` | Port for the Homebridge UI |
+| `-StoragePath` | `C:\homebridge` | Where Homebridge stores its config |
+| `-ServiceName` | `Homebridge` | Windows service name |
+
+Example with custom options:
+
+```powershell
+.\scripts\install-windows.ps1 -Port 8582 -StoragePath "D:\homebridge" -ServiceName MyHomebridge
+```
+
+### Managing the Service
+
+```powershell
+sc start Homebridge   # Start
+sc stop Homebridge    # Stop
+sc query Homebridge   # Check status
+```
 
 ## Usage
 
